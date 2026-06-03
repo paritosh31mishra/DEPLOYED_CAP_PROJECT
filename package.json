@@ -1,0 +1,52 @@
+{
+  "name": "employee1-cap",
+  "version": "1.0.0",
+  "dependencies": {
+    "-": "^0.0.1",
+    "@cap-js-community/odata-v2-adapter": "^1.15.12",
+    "@cap-js/hana": "^2.8.0",
+    "@sap/cds": "^9",
+    "@sap/xsenv": "^6.2.1",
+    "@sap/xssec": "^4.13.0",
+    "command": "^1.1.1"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.4",
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.49",
+    "rimraf": "^5.0.5"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-sal": "cds watch --open demo.emp.sal/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy EMPLOYEE1-CAP --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
+  "private": true,
+  "description": "Welcome to your new CAP project.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/sal"
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana"
+      },
+      "[production]": {
+        "auth": "dummy"
+      },
+      "[hybrid]": {
+        "auth": "xsuaa"
+      }
+    }
+  }
+}
